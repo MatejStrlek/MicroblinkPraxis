@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE54C7392BFC79BC00626951 /* RAII_video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE5860882BFBD51000F0EC75 /* RAII_video.cpp */; };
 		CE58607F2BFB5B9000F0EC75 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE58607E2BFB5B9000F0EC75 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		CE54C7302BFC79B600626951 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		CE5860792BFB5B9000F0EC75 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -23,11 +33,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE54C7322BFC79B600626951 /* RAII_video */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RAII_video; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE58607B2BFB5B9000F0EC75 /* HelloWorld */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HelloWorld; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE58607E2BFB5B9000F0EC75 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CE5860882BFBD51000F0EC75 /* RAII_video.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RAII_video.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CE54C72F2BFC79B600626951 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE5860782BFB5B9000F0EC75 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -38,10 +57,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE54C7332BFC79B600626951 /* RAII_video */ = {
+			isa = PBXGroup;
+			children = (
+				CE5860882BFBD51000F0EC75 /* RAII_video.cpp */,
+			);
+			path = RAII_video;
+			sourceTree = "<group>";
+		};
 		CE5860722BFB5B9000F0EC75 = {
 			isa = PBXGroup;
 			children = (
 				CE58607D2BFB5B9000F0EC75 /* HelloWorld */,
+				CE54C7332BFC79B600626951 /* RAII_video */,
 				CE58607C2BFB5B9000F0EC75 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				CE58607B2BFB5B9000F0EC75 /* HelloWorld */,
+				CE54C7322BFC79B600626951 /* RAII_video */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,6 +94,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CE54C7312BFC79B600626951 /* RAII_video */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE54C7362BFC79B600626951 /* Build configuration list for PBXNativeTarget "RAII_video" */;
+			buildPhases = (
+				CE54C72E2BFC79B600626951 /* Sources */,
+				CE54C72F2BFC79B600626951 /* Frameworks */,
+				CE54C7302BFC79B600626951 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RAII_video;
+			productName = RAII_video;
+			productReference = CE54C7322BFC79B600626951 /* RAII_video */;
+			productType = "com.apple.product-type.tool";
+		};
 		CE58607A2BFB5B9000F0EC75 /* HelloWorld */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE5860822BFB5B9000F0EC75 /* Build configuration list for PBXNativeTarget "HelloWorld" */;
@@ -91,6 +137,9 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					CE54C7312BFC79B600626951 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					CE58607A2BFB5B9000F0EC75 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -110,11 +159,20 @@
 			projectRoot = "";
 			targets = (
 				CE58607A2BFB5B9000F0EC75 /* HelloWorld */,
+				CE54C7312BFC79B600626951 /* RAII_video */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CE54C72E2BFC79B600626951 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE54C7392BFC79BC00626951 /* RAII_video.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE5860772BFB5B9000F0EC75 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -126,6 +184,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		CE54C7372BFC79B600626951 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CE54C7382BFC79B600626951 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		CE5860802BFB5B9000F0EC75 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -260,6 +334,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CE54C7362BFC79B600626951 /* Build configuration list for PBXNativeTarget "RAII_video" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE54C7372BFC79B600626951 /* Debug */,
+				CE54C7382BFC79B600626951 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CE5860762BFB5B9000F0EC75 /* Build configuration list for PBXProject "HelloWorld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
