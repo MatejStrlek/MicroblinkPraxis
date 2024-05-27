@@ -8,9 +8,8 @@
 #ifndef LinkedList_hpp
 #define LinkedList_hpp
 
-#include <stdio.h>
+
 #include <cstddef>
-#include <iostream>
 
 class LinkedList {
 public:
@@ -28,9 +27,8 @@ public:
 
 private:
     struct Node {
-        Node(int val, Node* nxt = nullptr) : next(nxt), value(val) {}
-        Node* next;
         int value;
+        Node* next = nullptr;
     };
 
     Node* head_ = nullptr;

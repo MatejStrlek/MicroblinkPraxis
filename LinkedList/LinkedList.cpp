@@ -6,7 +6,8 @@
 //
 
 #include "LinkedList.hpp"
-
+#include <stdio.h>
+#include <iostream>
 
 LinkedList::LinkedList(){
     std::cout << "Constructor called for LinkedList " << this << std::endl;
@@ -21,17 +22,16 @@ LinkedList::~LinkedList(){
     std::cout << "Destructor called for " << this << std::endl;
 }
 
-LinkedList::LinkedList(const LinkedList& other) : head_(nullptr), size_(0) {
+LinkedList::LinkedList(const LinkedList& other) : head_(nullptr), size_(other.size_) {
     if (other.head_) {
-        head_ = new Node(other.head_->value);
+        head_ = new Node{other.head_->value};
         Node* current = head_;
-        Node* second = other.head_->next;
-        while (second) {
-            current->next = new Node(second->value);
+        Node* next = other.head_->next;
+        while (next) {
+            current->next = new Node{next->value};
             current = current->next;
-            second = second->next;
+            next = next->next;
         }
-        size_ = other.size_;
     }
     else{
         std::cout << "List to be copied is empty!" << std::endl;
@@ -53,7 +53,7 @@ std::size_t LinkedList::size() const {
 }
 
 void LinkedList::push_back(int value) {
-    Node* newNode = new Node(value);
+    Node* newNode = new Node{value};
     if (!head_) {
         head_ = newNode;
     } else {

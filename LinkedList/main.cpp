@@ -32,7 +32,7 @@ int main() {
     std::cout << "Copied list: ";
     copiedList.print();
 
-    std::cout << "Original list after moving: ";
+    std::cout << "Original list after copying: ";
     list.print();
     
     LinkedList l1;
