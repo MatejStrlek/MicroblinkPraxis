@@ -92,6 +92,18 @@ void LinkedList::erase_first(int value) {
     }
 }
 
+int LinkedList::get(std::size_t index) const {
+    if (index >= size_) {
+        throw std::out_of_range("Index out of range!");
+    }
+    
+    Node* current = head_;
+    for (std::size_t i = 0; i < index; ++i) {
+        current = current->next;
+    }
+    return current->value;
+}
+
 void LinkedList::print() const {
     Node* current = head_;
     while (current) {

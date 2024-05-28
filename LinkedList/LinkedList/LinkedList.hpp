@@ -23,6 +23,8 @@ public:
     void push_back(int value);
     void erase_first(int value);
 
+    int get(std::size_t index) const;
+
     void print() const;
 
 private:
