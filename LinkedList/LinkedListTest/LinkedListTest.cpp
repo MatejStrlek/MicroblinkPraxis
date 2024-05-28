@@ -68,6 +68,12 @@ TEST(LinkedListTest, GetElements) {
     EXPECT_EQ(list.get(2), 30);
 }
 
+TEST(LinkedListTest, EraseFirstEmptyList) {
+    LinkedList list;
+    EXPECT_NO_THROW(list.erase_first(1));
+    EXPECT_EQ(list.size(), 0);
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
