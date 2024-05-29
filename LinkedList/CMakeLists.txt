@@ -6,4 +6,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_subdirectory(LinkedList)
-add_subdirectory(LinkedListTest)
+
+if (BUILD_TESTING)
+    add_subdirectory(LinkedListTest)
+endif()
+
