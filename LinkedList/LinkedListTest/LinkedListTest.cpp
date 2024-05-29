@@ -44,6 +44,8 @@ TEST(LinkedListTest, CopyConstructor) {
     list.push_back(2);
     LinkedList copiedList = list;
     EXPECT_EQ(copiedList.size(), 2);
+    EXPECT_EQ(copiedList.get(0), list.get(0));
+    EXPECT_EQ(copiedList.get(1), list.get(1));
 }
 
 TEST(LinkedListTest, AssignmentOperator) {
@@ -54,6 +56,8 @@ TEST(LinkedListTest, AssignmentOperator) {
     LinkedList list2;
     list2 = list1;
     EXPECT_EQ(list2.size(), 2);
+    EXPECT_EQ(list1.get(0), list2.get(0));
+    EXPECT_EQ(list1.get(1), list2.get(1));
 }
 
 TEST(LinkedListTest, GetElements) {
@@ -71,6 +75,27 @@ TEST(LinkedListTest, GetElements) {
 TEST(LinkedListTest, EraseFirstEmptyList) {
     LinkedList list;
     EXPECT_NO_THROW(list.erase_first(1));
+    EXPECT_EQ(list.size(), 0);
+}
+
+TEST(LinkedListTest, AddAndRemoveThreeElements) {
+    LinkedList list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+
+    EXPECT_EQ(list.size(), 3);
+
+    list.erase_first(1);
+    EXPECT_EQ(list.size(), 2);
+    EXPECT_EQ(list.get(0), 2);
+    EXPECT_EQ(list.get(1), 3);
+
+    list.erase_first(2);
+    EXPECT_EQ(list.size(), 1);
+    EXPECT_EQ(list.get(0), 3);
+
+    list.erase_first(3);
     EXPECT_EQ(list.size(), 0);
 }
 
