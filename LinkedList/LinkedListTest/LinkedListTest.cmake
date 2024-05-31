@@ -6,9 +6,12 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_executable(LinkedListTests ${CMAKE_CURRENT_SOURCE_DIR}/LinkedListTest.cpp)
+include(${CMAKE_CURRENT_LIST_DIR}/LinkedListTest.srcs.cmake)
+
+add_executable(LinkedListTests ${TEST_SOURCES})
 target_link_libraries(LinkedListTests gtest_main LinkedList)
 
 enable_testing()
 
-add_test(NAME LinkedListTests COMMAND LinkedListTests)
+include( GoogleTest )
+gtest_discover_tests( IntroLibTest )
