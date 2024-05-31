@@ -57,12 +57,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DCMAKE_CXX_FLAGS="-fsanitize=
 cmake --build .
 ```
 
-5. **Navigate to LinkedListTest**
-```
-cd LinkedListTest/
-```
-
-6. **Run tests**
+5. **Run tests**
 ```
 ctest --verbose
 ```
