@@ -7,26 +7,21 @@
 
 #include "LinkedList.hpp"
 
-#include <iostream>
-#include <stdio.h>
+#include <utility>
 
-LinkedList::LinkedList()
-{
-    std::cout << "Constructor called for LinkedList " << this << std::endl;
-}
+LinkedList::LinkedList() {}
 
 LinkedList::~LinkedList()
 {
     while ( head_ )
     {
         Node * temp = head_;
-        head_       = ( *head_ ).next;  // ovo se moze koristit umjesto ->
+        head_       = ( *head_ ).next;
         delete temp;
     }
-    std::cout << "Destructor called for " << this << std::endl;
 }
 
-LinkedList::LinkedList( const LinkedList & other ) : head_( nullptr ), size_( other.size_ )
+LinkedList::LinkedList( const LinkedList & other ) noexcept : head_( nullptr ), size_( other.size_ )
 {
     if ( other.head_ )
     {
@@ -40,13 +35,9 @@ LinkedList::LinkedList( const LinkedList & other ) : head_( nullptr ), size_( ot
             next          = next->next;
         }
     }
-    else
-    {
-        std::cout << "List to be copied is empty!" << std::endl;
-    }
 }
 
-LinkedList & LinkedList::operator=( const LinkedList & other )
+LinkedList & LinkedList::operator=( const LinkedList & other ) noexcept
 {
     if ( this != &other )
     {
@@ -68,28 +59,19 @@ LinkedList & LinkedList::operator=( LinkedList && other ) noexcept
 {
     if ( this != &other )
     {
-        while ( head_ )
-        {
-            Node * temp = head_;
-            head_       = head_->next;
-            delete temp;
-        }
-
-        head_ = other.head_;
-        size_ = other.size_;
-
-        other.head_ = nullptr;
-        other.size_ = 0;
+        LinkedList temp( std::move( other ) );
+        std::swap( head_, temp.head_ );
+        std::swap( size_, temp.size_ );
     }
     return *this;
 }
 
-std::size_t LinkedList::size() const
+std::size_t LinkedList::size() const noexcept
 {
     return size_;
 }
 
-void LinkedList::push_back( int value )
+void LinkedList::push_back( int value ) noexcept
 {
     Node * newNode = new Node{ value };
     if ( !head_ )
@@ -109,7 +91,7 @@ void LinkedList::push_back( int value )
     ++size_;
 }
 
-void LinkedList::erase_first( int value )
+void LinkedList::erase_first( int value ) noexcept
 {
     if ( !head_ )
         return;
@@ -139,11 +121,11 @@ void LinkedList::erase_first( int value )
     }
 }
 
-int LinkedList::get( std::size_t index ) const
+int LinkedList::get( std::size_t index ) const noexcept
 {
     if ( index >= size_ )
     {
-        throw std::out_of_range( "Index out of range!" );
+        return -1;
     }
 
     Node * current = head_;
@@ -154,13 +136,11 @@ int LinkedList::get( std::size_t index ) const
     return current->value;
 }
 
-void LinkedList::print() const
+void LinkedList::print() const noexcept
 {
     Node * current = head_;
     while ( current )
     {
-        std::cout << current->value << " ";
         current = current->next;
     }
-    std::cout << std::endl;
 }

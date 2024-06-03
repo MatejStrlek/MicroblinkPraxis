@@ -16,19 +16,19 @@ public:
     LinkedList();
     ~LinkedList();
 
-    LinkedList( const LinkedList & other );
-    LinkedList & operator=( const LinkedList & other );
+    LinkedList( const LinkedList & other ) noexcept;
+    LinkedList & operator=( const LinkedList & other ) noexcept;
 
     LinkedList( LinkedList && other ) noexcept;
     LinkedList & operator=( LinkedList && other ) noexcept;
 
-    std::size_t size() const;
-    void        push_back( int value );
-    void        erase_first( int value );
+    std::size_t size() const noexcept;
+    void        push_back( int value ) noexcept;
+    void        erase_first( int value ) noexcept;
 
-    int get( std::size_t index ) const;
+    int get( std::size_t index ) const noexcept;
 
-    void print() const;
+    void print() const noexcept;
 
 private:
     struct Node
