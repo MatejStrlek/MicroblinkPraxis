@@ -5,8 +5,8 @@ project(LinkedListProject VERSION 1.0)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include(LinkedList/LinkedList.cmake)
+include(IntroLib/IntroLib.cmake)
 
 if (BUILD_TESTING)
-    include(LinkedListTest/LinkedListTest.cmake)
+    include(IntroLibTest/IntroLibTest.cmake)
 endif()
