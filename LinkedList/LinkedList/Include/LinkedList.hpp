@@ -19,6 +19,9 @@ public:
     LinkedList( const LinkedList & other );
     LinkedList & operator=( const LinkedList & other );
 
+    LinkedList( LinkedList && other ) noexcept;
+    LinkedList & operator=( LinkedList && other ) noexcept;
+
     std::size_t size() const;
     void        push_back( int value );
     void        erase_first( int value );

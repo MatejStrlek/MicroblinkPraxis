@@ -54,6 +54,41 @@ TEST( LinkedListTest, CopyConstructor )
     EXPECT_EQ( copiedList.get( 1 ), list.get( 1 ) );
 }
 
+TEST( LinkedListTest, MoveConstructor )
+{
+    LinkedList list1;
+    list1.push_back( 1 );
+    list1.push_back( 2 );
+    list1.push_back( 3 );
+
+    LinkedList list2( std::move( list1 ) );
+
+    EXPECT_EQ( list2.size(), 3 );
+    EXPECT_EQ( list2.get( 0 ), 1 );
+    EXPECT_EQ( list2.get( 1 ), 2 );
+    EXPECT_EQ( list2.get( 2 ), 3 );
+
+    EXPECT_EQ( list1.size(), 0 );
+}
+
+TEST( LinkedListTest, MoveAssignmentOperator )
+{
+    LinkedList list1;
+    list1.push_back( 1 );
+    list1.push_back( 2 );
+    list1.push_back( 3 );
+
+    LinkedList list2;
+    list2 = std::move( list1 );
+
+    EXPECT_EQ( list2.size(), 3 );
+    EXPECT_EQ( list2.get( 0 ), 1 );
+    EXPECT_EQ( list2.get( 1 ), 2 );
+    EXPECT_EQ( list2.get( 2 ), 3 );
+
+    EXPECT_EQ( list1.size(), 0 );
+}
+
 TEST( LinkedListTest, AssignmentOperator )
 {
     LinkedList list1;

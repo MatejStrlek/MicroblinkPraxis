@@ -58,6 +58,32 @@ LinkedList & LinkedList::operator=( const LinkedList & other )
     return *this;
 }
 
+LinkedList::LinkedList( LinkedList && other ) noexcept : head_( other.head_ ), size_( other.size_ )
+{
+    other.head_ = nullptr;
+    other.size_ = 0;
+}
+
+LinkedList & LinkedList::operator=( LinkedList && other ) noexcept
+{
+    if ( this != &other )
+    {
+        while ( head_ )
+        {
+            Node * temp = head_;
+            head_       = head_->next;
+            delete temp;
+        }
+
+        head_ = other.head_;
+        size_ = other.size_;
+
+        other.head_ = nullptr;
+        other.size_ = 0;
+    }
+    return *this;
+}
+
 std::size_t LinkedList::size() const
 {
     return size_;
