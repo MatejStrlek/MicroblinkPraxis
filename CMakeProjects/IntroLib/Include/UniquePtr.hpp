@@ -4,7 +4,7 @@
 class UniquePtr
 {
 public:
-    explicit UniquePtr( int * ptr = nullptr );
+    explicit UniquePtr( int value );
     ~UniquePtr();
 
     UniquePtr( const UniquePtr & )             = delete;
@@ -15,7 +15,7 @@ public:
 
     int * get() const noexcept;
     int * release() noexcept;
-    void  reset( int * ptr = nullptr ) noexcept;
+    void  reset( int value ) noexcept;
 
     int &    operator*() const noexcept;
     int *    operator->() const noexcept;

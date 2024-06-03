@@ -1,6 +1,6 @@
 #include "UniquePtr.hpp"
 
-UniquePtr::UniquePtr( int * ptr ) : ptr_( ptr ) {}
+UniquePtr::UniquePtr( int value ) : ptr_( new int( value ) ) {}
 
 UniquePtr::~UniquePtr()
 {
@@ -35,10 +35,10 @@ int * UniquePtr::release() noexcept
     return temp;
 }
 
-void UniquePtr::reset( int * ptr ) noexcept
+void UniquePtr::reset( int value ) noexcept
 {
     delete ptr_;
-    ptr_ = ptr;
+    ptr_ = new int( value );
 }
 
 int & UniquePtr::operator*() const noexcept
