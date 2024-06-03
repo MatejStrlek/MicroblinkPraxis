@@ -14,4 +14,4 @@ target_link_libraries(LinkedListTests gtest_main LinkedList)
 enable_testing()
 
 include( GoogleTest )
-gtest_discover_tests( IntroLibTest )
+gtest_discover_tests(LinkedListTests)
