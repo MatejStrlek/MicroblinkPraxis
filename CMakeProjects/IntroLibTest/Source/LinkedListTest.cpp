@@ -54,7 +54,7 @@ TEST( LinkedListTest, EraseAll )
     ASSERT_EQ( list.get( 3 ), 2 );
     ASSERT_EQ( list.get( 4 ), 4 );
 
-    list.erase_all( []( int val ) { return val == 2; } );
+    list.erase_all( []( int val ) noexcept { return val == 2; } );
 
     ASSERT_TRUE( list.size() == 3 );
     ASSERT_EQ( list.get( 0 ), 1 );
@@ -78,9 +78,31 @@ TEST( LinkedListTest, EraseAllNotFound )
     ASSERT_EQ( list.get( 3 ), 2 );
     ASSERT_EQ( list.get( 4 ), 4 );
 
-    list.erase_all( []( int val ) { return val == 5; } );
+    list.erase_all( []( int val ) noexcept { return val == 5; } );
 
     ASSERT_TRUE( list.size() == 5 );
+}
+
+TEST( LinkedListTest, EraseAllEmptyList )
+{
+    LinkedList list;
+    list.erase_all( []( int val ) noexcept { return true; } );
+    ASSERT_EQ( list.size(), 0 );
+}
+
+TEST( LinedListTest, EraseAllNumbers )
+{
+    LinkedList list;
+
+    list.push_back( 1 );
+    list.push_back( 2 );
+    list.push_back( 3 );
+    list.push_back( 2 );
+    list.push_back( 4 );
+
+    list.erase_all( []( int val ) noexcept { return true; } );
+
+    ASSERT_EQ( list.size(), 0 );
 }
 
 TEST( LinkedListTest, EraseFirstNotFound )
