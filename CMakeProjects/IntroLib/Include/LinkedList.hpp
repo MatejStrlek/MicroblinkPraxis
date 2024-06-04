@@ -9,6 +9,7 @@
 #define LinkedList_hpp
 
 #include <cstddef>
+#include <functional>
 
 class LinkedList
 {
@@ -25,6 +26,7 @@ public:
     [[nodiscard]] std::size_t size() const noexcept;
     void                      push_back( int value );
     void                      erase_first( int value ) noexcept;
+    void                      erase_all( std::function< bool( int ) > predicate ) noexcept;
 
     [[nodiscard]] int get( std::size_t index ) const;
 

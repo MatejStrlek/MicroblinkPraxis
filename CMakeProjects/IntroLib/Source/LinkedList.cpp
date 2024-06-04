@@ -121,6 +121,36 @@ void LinkedList::erase_first( int value ) noexcept
     }
 }
 
+void LinkedList::erase_all( std::function< bool( int ) > predicate ) noexcept
+{
+    if ( !head_ )
+        return;
+
+    while ( head_ && predicate( head_->value ) )
+    {
+        Node * temp = head_;
+        head_       = head_->next;
+        delete temp;
+        --size_;
+    }
+
+    Node * current = head_;
+    while ( current && current->next )
+    {
+        if ( predicate( current->next->value ) )
+        {
+            Node * temp   = current->next;
+            current->next = current->next->next;
+            delete temp;
+            --size_;
+        }
+        else
+        {
+            current = current->next;
+        }
+    }
+}
+
 int LinkedList::get( std::size_t index ) const
 {
     if ( index >= size_ )
