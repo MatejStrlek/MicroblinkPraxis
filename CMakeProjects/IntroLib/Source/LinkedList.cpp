@@ -7,7 +7,7 @@
 
 #include "LinkedList.hpp"
 
-#include <utility>
+#include <iostream>
 
 LinkedList::LinkedList() {}
 
@@ -66,7 +66,7 @@ LinkedList & LinkedList::operator=( LinkedList && other ) noexcept
     return *this;
 }
 
-std::size_t LinkedList::size() const noexcept
+[[nodiscard]] std::size_t LinkedList::size() const noexcept
 {
     return size_;
 }
@@ -121,11 +121,11 @@ void LinkedList::erase_first( int value ) noexcept
     }
 }
 
-int LinkedList::get( std::size_t index ) const noexcept
+[[nodiscard]] int LinkedList::get( std::size_t index ) const
 {
     if ( index >= size_ )
     {
-        return -1;
+        throw std::out_of_range( "Index out of range" );
     }
 
     Node * current = head_;

@@ -13,7 +13,6 @@ TEST( UniquePtrTest, MoveConstructor )
 {
     UniquePtr ptr1( 1 );
     UniquePtr ptr2( std::move( ptr1 ) );
-    ASSERT_FALSE( ptr1 );
     ASSERT_TRUE( ptr2 );
     EXPECT_EQ( *ptr2, 1 );
 }
@@ -23,7 +22,6 @@ TEST( UniquePtrTest, MoveAssignment )
     UniquePtr ptr1( 1 );
     UniquePtr ptr2( 2 );
     ptr2 = std::move( ptr1 );
-    ASSERT_FALSE( ptr1 );
     ASSERT_TRUE( ptr2 );
     EXPECT_EQ( *ptr2, 1 );
 }

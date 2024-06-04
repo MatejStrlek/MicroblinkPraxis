@@ -13,13 +13,13 @@ public:
     UniquePtr( UniquePtr && other ) noexcept;
     UniquePtr & operator=( UniquePtr && other ) noexcept;
 
-    int * get() const noexcept;
-    int * release() noexcept;
-    void  reset( int value ) noexcept;
+    [[nodiscard]] int * get() const noexcept;
+    [[nodiscard]] int * release() noexcept;
+    void                reset( int value ) noexcept;
 
-    int &    operator*() const noexcept;
-    int *    operator->() const noexcept;
-    explicit operator bool() const noexcept;
+    int &                  operator*() const noexcept;
+    int *                  operator->() const noexcept;
+    [[nodiscard]] explicit operator bool() const noexcept;
 
 private:
     int * ptr_;
