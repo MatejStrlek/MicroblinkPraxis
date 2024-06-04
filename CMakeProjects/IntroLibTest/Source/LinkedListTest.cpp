@@ -34,6 +34,55 @@ TEST( LinkedListTest, EraseFirst )
     EXPECT_EQ( list.size(), 2 );
 }
 
+#include "LinkedList.hpp"
+
+#include <gtest/gtest.h>
+
+TEST( LinkedListTest, EraseAll )
+{
+    LinkedList list;
+    list.push_back( 1 );
+    list.push_back( 2 );
+    list.push_back( 3 );
+    list.push_back( 2 );
+    list.push_back( 4 );
+
+    ASSERT_TRUE( list.size() == 5 );
+    ASSERT_EQ( list.get( 0 ), 1 );
+    ASSERT_EQ( list.get( 1 ), 2 );
+    ASSERT_EQ( list.get( 2 ), 3 );
+    ASSERT_EQ( list.get( 3 ), 2 );
+    ASSERT_EQ( list.get( 4 ), 4 );
+
+    list.erase_all( []( int val ) { return val == 2; } );
+
+    ASSERT_TRUE( list.size() == 3 );
+    ASSERT_EQ( list.get( 0 ), 1 );
+    ASSERT_EQ( list.get( 1 ), 3 );
+    ASSERT_EQ( list.get( 2 ), 4 );
+}
+
+TEST( LinkedListTest, EraseAllNotFound )
+{
+    LinkedList list;
+    list.push_back( 1 );
+    list.push_back( 2 );
+    list.push_back( 3 );
+    list.push_back( 2 );
+    list.push_back( 4 );
+
+    ASSERT_TRUE( list.size() == 5 );
+    ASSERT_EQ( list.get( 0 ), 1 );
+    ASSERT_EQ( list.get( 1 ), 2 );
+    ASSERT_EQ( list.get( 2 ), 3 );
+    ASSERT_EQ( list.get( 3 ), 2 );
+    ASSERT_EQ( list.get( 4 ), 4 );
+
+    list.erase_all( []( int val ) { return val == 5; } );
+
+    ASSERT_TRUE( list.size() == 5 );
+}
+
 TEST( LinkedListTest, EraseFirstNotFound )
 {
     LinkedList list;
