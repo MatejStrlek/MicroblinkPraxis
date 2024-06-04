@@ -66,7 +66,7 @@ LinkedList & LinkedList::operator=( LinkedList && other ) noexcept
     return *this;
 }
 
-[[nodiscard]] std::size_t LinkedList::size() const noexcept
+std::size_t LinkedList::size() const noexcept
 {
     return size_;
 }
@@ -121,7 +121,7 @@ void LinkedList::erase_first( int value ) noexcept
     }
 }
 
-[[nodiscard]] int LinkedList::get( std::size_t index ) const
+int LinkedList::get( std::size_t index ) const
 {
     if ( index >= size_ )
     {

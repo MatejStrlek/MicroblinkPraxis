@@ -23,12 +23,12 @@ UniquePtr & UniquePtr::operator=( UniquePtr && other ) noexcept
     return *this;
 }
 
-[[nodiscard]] int * UniquePtr::get() const noexcept
+int * UniquePtr::get() const noexcept
 {
     return ptr_;
 }
 
-[[nodiscard]] int * UniquePtr::release() noexcept
+int * UniquePtr::release() noexcept
 {
     int * temp = ptr_;
     ptr_       = nullptr;
@@ -51,7 +51,7 @@ int * UniquePtr::operator->() const noexcept
     return ptr_;
 }
 
-[[nodiscard]] UniquePtr::operator bool() const noexcept
+UniquePtr::operator bool() const noexcept
 {
     return ptr_ != nullptr;
 }
