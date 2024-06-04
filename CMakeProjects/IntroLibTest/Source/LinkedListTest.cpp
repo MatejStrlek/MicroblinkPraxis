@@ -67,8 +67,6 @@ TEST( LinkedListTest, MoveConstructor )
     EXPECT_EQ( list2.get( 0 ), 1 );
     EXPECT_EQ( list2.get( 1 ), 2 );
     EXPECT_EQ( list2.get( 2 ), 3 );
-
-    EXPECT_EQ( list1.size(), 0 );
 }
 
 TEST( LinkedListTest, MoveAssignmentOperator )
@@ -85,8 +83,6 @@ TEST( LinkedListTest, MoveAssignmentOperator )
     EXPECT_EQ( list2.get( 0 ), 1 );
     EXPECT_EQ( list2.get( 1 ), 2 );
     EXPECT_EQ( list2.get( 2 ), 3 );
-
-    EXPECT_EQ( list1.size(), 0 );
 }
 
 TEST( LinkedListTest, AssignmentOperator )

@@ -16,14 +16,14 @@ public:
     LinkedList();
     ~LinkedList();
 
-    LinkedList( const LinkedList & other ) noexcept;
-    LinkedList & operator=( const LinkedList & other ) noexcept;
+    LinkedList( const LinkedList & other );
+    LinkedList & operator=( const LinkedList & other );
 
     LinkedList( LinkedList && other ) noexcept;
     LinkedList & operator=( LinkedList && other ) noexcept;
 
     std::size_t size() const noexcept;
-    void        push_back( int value ) noexcept;
+    void        push_back( int value );
     void        erase_first( int value ) noexcept;
 
     int get( std::size_t index ) const noexcept;

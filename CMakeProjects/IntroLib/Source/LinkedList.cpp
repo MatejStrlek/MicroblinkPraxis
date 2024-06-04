@@ -21,7 +21,7 @@ LinkedList::~LinkedList()
     }
 }
 
-LinkedList::LinkedList( const LinkedList & other ) noexcept : head_( nullptr ), size_( other.size_ )
+LinkedList::LinkedList( const LinkedList & other ) : head_( nullptr ), size_( other.size_ )
 {
     if ( other.head_ )
     {
@@ -37,7 +37,7 @@ LinkedList::LinkedList( const LinkedList & other ) noexcept : head_( nullptr ), 
     }
 }
 
-LinkedList & LinkedList::operator=( const LinkedList & other ) noexcept
+LinkedList & LinkedList::operator=( const LinkedList & other )
 {
     if ( this != &other )
     {
@@ -71,7 +71,7 @@ std::size_t LinkedList::size() const noexcept
     return size_;
 }
 
-void LinkedList::push_back( int value ) noexcept
+void LinkedList::push_back( int value )
 {
     Node * newNode = new Node{ value };
     if ( !head_ )
