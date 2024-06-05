@@ -29,18 +29,21 @@ public:
     void                      erase_all( std::function< bool( int ) > predicate ) noexcept;
 
     [[nodiscard]] int get( std::size_t index ) const;
+    const int &       operator[]( std::size_t index ) const;
 
-    void print() const noexcept;
+    friend std::ostream & operator<<( std::ostream & os, const LinkedList & list );
 
 private:
     struct Node
     {
-        int    value;
-        Node * next = nullptr;
+        int                     value;
+        std::unique_ptr< Node > next = nullptr;
+
+        explicit Node( int value ) : value( value ) {}
     };
 
-    Node *      head_ = nullptr;
-    std::size_t size_ = 0;
+    std::unique_ptr< Node > head_ = nullptr;
+    std::size_t             size_ = 0;
 };
 
 #endif /* LinkedList_hpp */

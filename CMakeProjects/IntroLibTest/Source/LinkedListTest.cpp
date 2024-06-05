@@ -210,3 +210,30 @@ TEST( LinkedListTest, AddAndRemoveThreeElements )
     list.erase_first( 3 );
     EXPECT_EQ( list.size(), 0 );
 }
+
+TEST( LinkedListTest, OutputStreamOperator )
+{
+    LinkedList list;
+    list.push_back( 1 );
+    list.push_back( 2 );
+    list.push_back( 3 );
+    list.push_back( 2 );
+    list.push_back( 4 );
+
+    std::ostringstream oss;
+    oss << list;
+
+    ASSERT_EQ( oss.str(), "1 2 3 2 4 " );
+}
+
+TEST( LinkedListTest, IndexOperator )
+{
+    LinkedList list;
+    list.push_back( 1 );
+    list.push_back( 2 );
+    list.push_back( 3 );
+
+    EXPECT_EQ( list[ 0 ], 1 );
+    EXPECT_EQ( list[ 1 ], 2 );
+    EXPECT_EQ( list[ 2 ], 3 );
+}

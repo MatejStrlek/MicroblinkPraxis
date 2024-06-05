@@ -15,9 +15,7 @@ LinkedList::~LinkedList()
 {
     while ( head_ )
     {
-        Node * temp = head_;
-        head_       = ( *head_ ).next;
-        delete temp;
+        head_ = std::move( head_->next );
     }
 }
 
@@ -25,14 +23,14 @@ LinkedList::LinkedList( const LinkedList & other ) : head_( nullptr ), size_( ot
 {
     if ( other.head_ )
     {
-        head_          = new Node{ other.head_->value };
-        Node * current = head_;
-        Node * next    = other.head_->next;
-        while ( next )
+        head_               = std::make_unique< Node >( other.head_->value );
+        Node * current      = head_.get();
+        Node * otherCurrent = other.head_->next.get();
+        while ( otherCurrent )
         {
-            current->next = new Node{ next->value };
-            current       = current->next;
-            next          = next->next;
+            current->next = std::make_unique< Node >( otherCurrent->value );
+            current       = current->next.get();
+            otherCurrent  = otherCurrent->next.get();
         }
     }
 }
@@ -49,9 +47,8 @@ LinkedList & LinkedList::operator=( const LinkedList & other )
     return *this;
 }
 
-LinkedList::LinkedList( LinkedList && other ) noexcept : head_( other.head_ ), size_( other.size_ )
+LinkedList::LinkedList( LinkedList && other ) noexcept : head_( std::move( other.head_ ) ), size_( other.size_ )
 {
-    other.head_ = nullptr;
     other.size_ = 0;
 }
 
@@ -73,21 +70,20 @@ std::size_t LinkedList::size() const noexcept
 
 void LinkedList::push_back( int value )
 {
-    Node * newNode = new Node{ value };
+    auto newNode = std::make_unique< Node >( value );
     if ( !head_ )
     {
-        head_ = newNode;
+        head_ = std::move( newNode );
     }
     else
     {
-        Node * current = head_;
+        Node * current = head_.get();
         while ( current->next )
         {
-            current = current->next;
+            current = current->next.get();
         }
-        current->next = newNode;
+        current->next = std::move( newNode );
     }
-
     ++size_;
 }
 
@@ -98,25 +94,20 @@ void LinkedList::erase_first( int value ) noexcept
 
     if ( head_->value == value )
     {
-        Node * temp = head_;
-        head_       = head_->next;
-        delete temp;
+        head_ = std::move( head_->next );
         --size_;
-
         return;
     }
 
-    Node * current = head_;
+    Node * current = head_.get();
     while ( current->next && current->next->value != value )
     {
-        current = current->next;
+        current = current->next.get();
     }
 
     if ( current->next )
     {
-        Node * temp   = current->next;
-        current->next = current->next->next;
-        delete temp;
+        current->next = std::move( current->next->next );
         --size_;
     }
 }
@@ -128,25 +119,21 @@ void LinkedList::erase_all( std::function< bool( int ) > predicate ) noexcept
 
     while ( head_ && predicate( head_->value ) )
     {
-        Node * temp = head_;
-        head_       = head_->next;
-        delete temp;
+        head_ = std::move( head_->next );
         --size_;
     }
 
-    Node * current = head_;
+    Node * current = head_.get();
     while ( current && current->next )
     {
         if ( predicate( current->next->value ) )
         {
-            Node * temp   = current->next;
-            current->next = current->next->next;
-            delete temp;
+            current->next = std::move( current->next->next );
             --size_;
         }
         else
         {
-            current = current->next;
+            current = current->next.get();
         }
     }
 }
@@ -158,19 +145,36 @@ int LinkedList::get( std::size_t index ) const
         throw std::out_of_range( "Index out of range" );
     }
 
-    Node * current = head_;
+    Node * current = head_.get();
     for ( std::size_t i = 0; i < index; ++i )
     {
-        current = current->next;
+        current = current->next.get();
     }
     return current->value;
 }
 
-void LinkedList::print() const noexcept
+int const & LinkedList::operator[]( std::size_t index ) const
 {
-    Node * current = head_;
+    if ( index >= size_ )
+    {
+        throw std::out_of_range( "Index out of range" );
+    }
+
+    Node * current = head_.get();
+    for ( std::size_t i = 0; i < index; ++i )
+    {
+        current = current->next.get();
+    }
+    return current->value;
+}
+
+std::ostream & operator<<( std::ostream & os, const LinkedList & list )
+{
+    LinkedList::Node * current = list.head_.get();
     while ( current )
     {
-        current = current->next;
+        os << current->value << " ";
+        current = current->next.get();
     }
+    return os;
 }
