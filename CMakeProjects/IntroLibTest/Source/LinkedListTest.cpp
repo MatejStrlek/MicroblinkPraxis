@@ -34,10 +34,6 @@ TEST( LinkedListTest, EraseFirst )
     EXPECT_EQ( list.size(), 2 );
 }
 
-#include "LinkedList.hpp"
-
-#include <gtest/gtest.h>
-
 TEST( LinkedListTest, EraseAll )
 {
     LinkedList list;
