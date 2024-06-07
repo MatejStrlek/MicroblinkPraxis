@@ -1,10 +1,11 @@
 #ifndef UNIQUE_PTR_HPP
 #define UNIQUE_PTR_HPP
 
+template < typename T >
 class UniquePtr
 {
 public:
-    explicit UniquePtr( int value );
+    explicit UniquePtr( T ptr_ );
     ~UniquePtr();
 
     UniquePtr( const UniquePtr & )             = delete;
@@ -13,16 +14,16 @@ public:
     UniquePtr( UniquePtr && other ) noexcept;
     UniquePtr & operator=( UniquePtr && other ) noexcept;
 
-    [[nodiscard]] int * get() const noexcept;
-    [[nodiscard]] int * release() noexcept;
-    void                reset( int value ) noexcept;
+    [[nodiscard]] T * get() const noexcept;
+    [[nodiscard]] T * release() noexcept;
+    void              reset( T value ) noexcept;
 
-    int &                  operator*() const noexcept;
-    int *                  operator->() const noexcept;
+    T &                    operator*() const noexcept;
+    T *                    operator->() const noexcept;
     [[nodiscard]] explicit operator bool() const noexcept;
 
 private:
-    int * ptr_;
+    T * ptr_;
 };
 
 #endif

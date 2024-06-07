@@ -1,18 +1,23 @@
 #include "UniquePtr.hpp"
 
-UniquePtr::UniquePtr( int value ) : ptr_( new int( value ) ) {}
+template < typename T >
+UniquePtr< T >::UniquePtr( T value ) : ptr_( new T( value ) )
+{}
 
-UniquePtr::~UniquePtr()
+template < typename T >
+UniquePtr< T >::~UniquePtr()
 {
     delete ptr_;
 }
 
-UniquePtr::UniquePtr( UniquePtr && other ) noexcept : ptr_( other.ptr_ )
+template < typename T >
+UniquePtr< T >::UniquePtr( UniquePtr && other ) noexcept : ptr_( other.ptr_ )
 {
     other.ptr_ = nullptr;
 }
 
-UniquePtr & UniquePtr::operator=( UniquePtr && other ) noexcept
+template < typename T >
+UniquePtr< T > & UniquePtr< T >::operator=( UniquePtr && other ) noexcept
 {
     if ( this != &other )
     {
@@ -23,35 +28,43 @@ UniquePtr & UniquePtr::operator=( UniquePtr && other ) noexcept
     return *this;
 }
 
-int * UniquePtr::get() const noexcept
+template < typename T >
+T * UniquePtr< T >::get() const noexcept
 {
     return ptr_;
 }
 
-int * UniquePtr::release() noexcept
+template < typename T >
+T * UniquePtr< T >::release() noexcept
 {
-    int * temp = ptr_;
-    ptr_       = nullptr;
+    T * temp = ptr_;
+    ptr_     = nullptr;
     return temp;
 }
 
-void UniquePtr::reset( int value ) noexcept
+template < typename T >
+void UniquePtr< T >::reset( T value ) noexcept
 {
     delete ptr_;
-    ptr_ = new int( value );
+    ptr_ = new T( value );
 }
 
-int & UniquePtr::operator*() const noexcept
+template < typename T >
+T & UniquePtr< T >::operator*() const noexcept
 {
     return *ptr_;
 }
 
-int * UniquePtr::operator->() const noexcept
+template < typename T >
+T * UniquePtr< T >::operator->() const noexcept
 {
     return ptr_;
 }
 
-UniquePtr::operator bool() const noexcept
+template < typename T >
+UniquePtr< T >::operator bool() const noexcept
 {
     return ptr_ != nullptr;
 }
+
+template class UniquePtr< int >;

@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <functional>
 
+template < typename T >
 class LinkedList
 {
 public:
@@ -24,24 +25,25 @@ public:
     LinkedList & operator=( LinkedList && other ) noexcept;
 
     [[nodiscard]] std::size_t size() const noexcept;
-    void                      push_back( int value );
-    void                      erase_first( int value ) noexcept;
-    void                      erase_all( std::function< bool( int ) > predicate ) noexcept;
+    void                      push_back( T value );
+    void                      erase_first( T value ) noexcept;
+    void                      erase_all( std::function< bool( T ) > predicate ) noexcept;
 
-    [[nodiscard]] int get( std::size_t index ) const;
-    const int &       operator[]( std::size_t index ) const;
+    [[nodiscard]] T get( std::size_t index ) const;
+    const T &       operator[]( std::size_t index ) const;
 
-    friend std::ostream & operator<<( std::ostream & os, const LinkedList & list );
+    template < typename U >
+    friend std::ostream & operator<<( std::ostream & os, const LinkedList< U > & list );
 
-private:
     struct Node
     {
-        int                     value;
-        std::unique_ptr< Node > next = nullptr;
+        T                       value;
+        std::unique_ptr< Node > next{ nullptr };
 
-        explicit Node( int value ) : value( value ) {}
+        explicit Node( T value ) : value( value ) {}
     };
 
+private:
     std::unique_ptr< Node > head_ = nullptr;
     std::size_t             size_ = 0;
 };

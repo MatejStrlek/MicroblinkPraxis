@@ -9,9 +9,12 @@
 
 #include <iostream>
 
-LinkedList::LinkedList() {}
+template < typename T >
+LinkedList< T >::LinkedList()
+{}
 
-LinkedList::~LinkedList()
+template < typename T >
+LinkedList< T >::~LinkedList()
 {
     while ( head_ )
     {
@@ -19,7 +22,8 @@ LinkedList::~LinkedList()
     }
 }
 
-LinkedList::LinkedList( const LinkedList & other ) : head_( nullptr ), size_( other.size_ )
+template < typename T >
+LinkedList< T >::LinkedList( const LinkedList & other ) : head_( nullptr ), size_{ other.size_ }
 {
     if ( other.head_ )
     {
@@ -35,11 +39,12 @@ LinkedList::LinkedList( const LinkedList & other ) : head_( nullptr ), size_( ot
     }
 }
 
-LinkedList & LinkedList::operator=( const LinkedList & other )
+template < typename T >
+LinkedList< T > & LinkedList< T >::operator=( const LinkedList & other )
 {
     if ( this != &other )
     {
-        LinkedList temp( other );
+        LinkedList temp{ other };
         std::swap( head_, temp.head_ );
         std::swap( size_, temp.size_ );
     }
@@ -47,28 +52,32 @@ LinkedList & LinkedList::operator=( const LinkedList & other )
     return *this;
 }
 
-LinkedList::LinkedList( LinkedList && other ) noexcept : head_( std::move( other.head_ ) ), size_( other.size_ )
+template < typename T >
+LinkedList< T >::LinkedList( LinkedList && other ) noexcept : head_{ std::move( other.head_ ) }, size_{ other.size_ }
 {
     other.size_ = 0;
 }
 
-LinkedList & LinkedList::operator=( LinkedList && other ) noexcept
+template < typename T >
+LinkedList< T > & LinkedList< T >::operator=( LinkedList && other ) noexcept
 {
     if ( this != &other )
     {
-        LinkedList temp( std::move( other ) );
+        LinkedList temp{ std::move( other ) };
         std::swap( head_, temp.head_ );
         std::swap( size_, temp.size_ );
     }
     return *this;
 }
 
-std::size_t LinkedList::size() const noexcept
+template < typename T >
+std::size_t LinkedList< T >::size() const noexcept
 {
     return size_;
 }
 
-void LinkedList::push_back( int value )
+template < typename T >
+void LinkedList< T >::push_back( T value )
 {
     auto newNode = std::make_unique< Node >( value );
     if ( !head_ )
@@ -87,7 +96,8 @@ void LinkedList::push_back( int value )
     ++size_;
 }
 
-void LinkedList::erase_first( int value ) noexcept
+template < typename T >
+void LinkedList< T >::erase_first( T value ) noexcept
 {
     if ( !head_ )
         return;
@@ -112,7 +122,8 @@ void LinkedList::erase_first( int value ) noexcept
     }
 }
 
-void LinkedList::erase_all( std::function< bool( int ) > predicate ) noexcept
+template < typename T >
+void LinkedList< T >::erase_all( std::function< bool( T ) > predicate ) noexcept
 {
     if ( !head_ )
         return;
@@ -138,7 +149,8 @@ void LinkedList::erase_all( std::function< bool( int ) > predicate ) noexcept
     }
 }
 
-int LinkedList::get( std::size_t index ) const
+template < typename T >
+T LinkedList< T >::get( std::size_t index ) const
 {
     if ( index >= size_ )
     {
@@ -153,7 +165,8 @@ int LinkedList::get( std::size_t index ) const
     return current->value;
 }
 
-int const & LinkedList::operator[]( std::size_t index ) const
+template < typename T >
+T const & LinkedList< T >::operator[]( std::size_t index ) const
 {
     if ( index >= size_ )
     {
@@ -168,9 +181,10 @@ int const & LinkedList::operator[]( std::size_t index ) const
     return current->value;
 }
 
-std::ostream & operator<<( std::ostream & os, const LinkedList & list )
+template < typename T >
+std::ostream & operator<<( std::ostream & os, const LinkedList< T > & list )
 {
-    LinkedList::Node * current = list.head_.get();
+    typename LinkedList< T >::Node * current = list.head_.get();
     while ( current )
     {
         os << current->value << " ";
@@ -178,3 +192,5 @@ std::ostream & operator<<( std::ostream & os, const LinkedList & list )
     }
     return os;
 }
+
+template class LinkedList< int >;
