@@ -11,9 +11,9 @@ public:
     explicit ImageLoader( const std::string & path );
     ~ImageLoader();
 
-    unsigned char * getData() const;
-    int             getWidth() const;
-    int             getHeight() const;
+    [[nodiscard]] unsigned char * getData() const;
+    [[nodiscard]] int             getWidth() const;
+    [[nodiscard]] int             getHeight() const;
 
 private:
     void load( const std::string & path );
