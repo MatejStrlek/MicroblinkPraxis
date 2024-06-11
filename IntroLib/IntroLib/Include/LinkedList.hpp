@@ -15,8 +15,8 @@ template < typename T >
 class LinkedList
 {
 public:
-    LinkedList() = default;
-    ~LinkedList();
+    LinkedList()  = default;
+    ~LinkedList() = default;
 
     LinkedList( const LinkedList & other );
     LinkedList & operator=( const LinkedList & other );
@@ -48,22 +48,13 @@ private:
 };
 
 template < typename T >
-LinkedList< T >::~LinkedList()
-{
-    while ( head_ )
-    {
-        head_ = std::move( head_->next );
-    }
-}
-
-template < typename T >
 LinkedList< T >::LinkedList( const LinkedList & other ) : head_( nullptr ), size_{ other.size_ }
 {
     if ( other.head_ )
     {
-        head_               = std::make_unique< Node >( other.head_->value );
-        Node * current      = head_.get();
-        Node * otherCurrent = other.head_->next.get();
+        head_ = std::make_unique< Node >( other.head_->value );
+        Node * current{ head_.get() };
+        Node * otherCurrent{ other.head_->next.get() };
         while ( otherCurrent )
         {
             current->next = std::make_unique< Node >( otherCurrent->value );
@@ -114,14 +105,14 @@ std::size_t LinkedList< T >::size() const noexcept
 template < typename T >
 void LinkedList< T >::push_back( T value )
 {
-    auto newNode = std::make_unique< Node >( value );
+    auto newNode{ std::make_unique< Node >( value ) };
     if ( !head_ )
     {
         head_ = std::move( newNode );
     }
     else
     {
-        Node * current = head_.get();
+        Node * current{ head_.get() };
         while ( current->next )
         {
             current = current->next.get();
@@ -144,7 +135,7 @@ void LinkedList< T >::erase_first( T value ) noexcept
         return;
     }
 
-    Node * current = head_.get();
+    Node * current{ head_.get() };
     while ( current->next && current->next->value != value )
     {
         current = current->next.get();
@@ -169,7 +160,7 @@ void LinkedList< T >::erase_all( std::function< bool( T ) > predicate ) noexcept
         --size_;
     }
 
-    Node * current = head_.get();
+    Node * current{ head_.get() };
     while ( current && current->next )
     {
         if ( predicate( current->next->value ) )
@@ -189,11 +180,11 @@ const T & LinkedList< T >::get( std::size_t index ) const
 {
     if ( index >= size_ )
     {
-        throw std::out_of_range( "Index out of range" );
+        throw std::out_of_range{ "Index out of range" };
     }
 
-    Node * current = head_.get();
-    for ( std::size_t i = 0; i < index; ++i )
+    Node * current{ head_.get() };
+    for ( std::size_t i{ 0 }; i < index; ++i )
     {
         current = current->next.get();
     }
@@ -205,11 +196,11 @@ T const & LinkedList< T >::operator[]( std::size_t index ) const
 {
     if ( index >= size_ )
     {
-        throw std::out_of_range( "Index out of range" );
+        throw std::out_of_range{ "Index out of range" };
     }
 
-    Node * current = head_.get();
-    for ( std::size_t i = 0; i < index; ++i )
+    Node * current{ head_.get() };
+    for ( std::size_t i{ 0 }; i < index; ++i )
     {
         current = current->next.get();
     }
@@ -219,12 +210,11 @@ T const & LinkedList< T >::operator[]( std::size_t index ) const
 template < typename T >
 std::ostream & operator<<( std::ostream & os, const LinkedList< T > & list )
 {
-    typename LinkedList< T >::Node * current = list.head_.get();
-    while ( current )
+    for ( auto * node{ list.head_.get() }; node; node = node->next.get() )
     {
-        os << current->value << " ";
-        current = current->next.get();
+        os << node->value << " ";
     }
+
     return os;
 }
 
