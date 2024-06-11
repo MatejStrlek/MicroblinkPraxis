@@ -4,8 +4,8 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/PlaygroundLib/Include/**",
-                "${workspaceFolder}/PlaygroundLib/Source/**"
+                "${workspaceFolder}/NNPlayground/Include/**",
+                "${workspaceFolder}/NNPlayground/Source/**"
             ],
             "defines": [],
             "macFrameworkPath": [
@@ -14,15 +14,7 @@
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "macos-clang-arm64",
-            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
-            "browse": {
-                "path": [
-                    "${workspaceFolder}/PlaygroundLib/Include/**",
-                    "${workspaceFolder}/PlaygroundLib/Source/**"
-                ],
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": ""
-            }
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
         }
     ],
     "version": 4
