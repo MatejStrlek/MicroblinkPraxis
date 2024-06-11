@@ -36,7 +36,10 @@ DerivedData/
 
 build/
 
-.vscode/*
+**/.vscode/
+
+CMakeUserPresets.json
+c_cpp_properties.json
 
 # Local History for Visual Studio Code
 .history/
