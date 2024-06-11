@@ -25,6 +25,25 @@ ImageLoader::~ImageLoader()
     }
 }
 
+ImageLoader::ImageLoader( const ImageLoader & other ) :
+    ctx( spng_ctx_new( 0 ) ), image_data( nullptr ), width( other.width ), height( other.height )
+{
+    if ( !ctx )
+    {
+        throw std::runtime_error( "Failed to create spng context" );
+    }
+
+    size_t image_size = width * height * 4;
+    image_data        = ( unsigned char * ) malloc( image_size );
+    if ( !image_data )
+    {
+        spng_ctx_free( ctx );
+        throw std::runtime_error( "Failed to allocate memory for image" );
+    }
+
+    std::memcpy( image_data, other.image_data, image_size );
+}
+
 unsigned char * ImageLoader::getData() const
 {
     return image_data;

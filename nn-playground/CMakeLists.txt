@@ -5,6 +5,8 @@ project(NN-PLAYGROUND VERSION 1.0)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include(PlaygroundLib/PlaygroundLib.cmake)
+include(NNPlayground/NNPlayground.cmake)
 
-include(PlaygroundLibMain/PlaygroundLibMain.cmake)
+if (BUILD_TESTING)
+    include(NNPlaygroundTests/NNPlaygroundTests.cmake)
+endif()

@@ -1,5 +1,6 @@
 [requires]
 libspng/0.7.4
+gtest/1.12.1
 
 [generators]
 CMakeDeps
