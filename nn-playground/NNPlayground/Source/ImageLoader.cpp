@@ -2,7 +2,9 @@
 
 #include <fstream>
 
-ImageLoader::ImageLoader( const std::string & path ) :
+ImageLoader::ImageLoader() : ctx( nullptr ), image_data( nullptr ), width( 0 ), height( 0 ) {}
+
+ImageLoader::ImageLoader( const std::filesystem::path & path ) :
     ctx( spng_ctx_new( 0 ) ), image_data( nullptr ), width( 0 ), height( 0 )
 {
     if ( !ctx )
@@ -22,6 +24,7 @@ ImageLoader::~ImageLoader()
     if ( image_data )
     {
         free( image_data );
+        image_data = nullptr;
     }
 }
 
@@ -44,6 +47,76 @@ ImageLoader::ImageLoader( const ImageLoader & other ) :
     std::memcpy( image_data, other.image_data, image_size );
 }
 
+ImageLoader & ImageLoader::operator=( const ImageLoader & other )
+{
+    if ( this != &other )
+    {
+        spng_ctx * new_ctx = spng_ctx_new( 0 );
+        if ( !new_ctx )
+        {
+            throw std::runtime_error( "Failed to create spng context" );
+        }
+
+        unsigned char * new_image_data = ( unsigned char * ) malloc( other.width * other.height * 4 );
+        if ( !new_image_data )
+        {
+            spng_ctx_free( new_ctx );
+            throw std::runtime_error( "Failed to allocate memory for image" );
+        }
+
+        std::memcpy( new_image_data, other.image_data, other.width * other.height * 4 );
+
+        spng_ctx_free( ctx );
+
+        if ( image_data )
+        {
+            free( image_data );
+            image_data = nullptr;
+        }
+
+        ctx        = new_ctx;
+        image_data = new_image_data;
+        width      = other.width;
+        height     = other.height;
+    }
+
+    return *this;
+}
+
+ImageLoader::ImageLoader( ImageLoader && other ) noexcept :
+    ctx( other.ctx ), image_data( other.image_data ), width( other.width ), height( other.height )
+{
+    other.ctx        = nullptr;
+    other.image_data = nullptr;
+    other.width      = 0;
+    other.height     = 0;
+}
+
+ImageLoader & ImageLoader::operator=( ImageLoader && other ) noexcept
+{
+    if ( this != &other )
+    {
+        spng_ctx_free( ctx );
+        if ( image_data )
+        {
+            free( image_data );
+            image_data = nullptr;
+        }
+
+        ctx        = other.ctx;
+        image_data = other.image_data;
+        width      = other.width;
+        height     = other.height;
+
+        other.ctx        = nullptr;
+        other.image_data = nullptr;
+        other.width      = 0;
+        other.height     = 0;
+    }
+
+    return *this;
+}
+
 unsigned char * ImageLoader::getData() const
 {
     return image_data;
@@ -59,12 +132,12 @@ int ImageLoader::getHeight() const
     return height;
 }
 
-void ImageLoader::load( const std::string & path )
+void ImageLoader::load( const std::filesystem::path & path )
 {
     FILE * file = fopen( path.c_str(), "rb" );
     if ( !file )
     {
-        throw std::runtime_error( "Failed to open file: " + path );
+        throw std::runtime_error( "Failed to open file: " + path.string() );
     }
 
     spng_set_png_file( ctx, file );
