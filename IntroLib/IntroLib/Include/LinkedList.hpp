@@ -15,7 +15,7 @@ template < typename T >
 class LinkedList
 {
 public:
-    LinkedList();
+    LinkedList() = default;
     ~LinkedList();
 
     LinkedList( const LinkedList & other );
@@ -35,6 +35,7 @@ public:
     template < typename U >
     friend std::ostream & operator<<( std::ostream & os, const LinkedList< U > & list );
 
+private:
     struct Node
     {
         explicit Node( T value ) : value{ value } {}
@@ -45,9 +46,6 @@ public:
     std::unique_ptr< Node > head_{ nullptr };
     std::size_t             size_{ 0 };
 };
-
-template < typename T >
-LinkedList< T >::LinkedList() = default;
 
 template < typename T >
 LinkedList< T >::~LinkedList()
@@ -92,6 +90,7 @@ template < typename T >
 LinkedList< T >::LinkedList( LinkedList && other ) noexcept : head_{ std::move( other.head_ ) }, size_{ other.size_ }
 {
     other.size_ = 0;
+    other.head_ = nullptr;
 }
 
 template < typename T >

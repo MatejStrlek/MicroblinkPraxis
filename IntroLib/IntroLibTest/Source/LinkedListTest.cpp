@@ -218,9 +218,3 @@ TEST( LinkedListTest, IndexOperator )
     EXPECT_EQ( list[ 1 ], 2 );
     EXPECT_EQ( list[ 2 ], 3 );
 }
-
-TEST( LinkedListTest, BraceInitialization )
-{
-    LinkedList< int >::Node node{ 10 };
-    EXPECT_EQ( node.value, 10 );
-}
