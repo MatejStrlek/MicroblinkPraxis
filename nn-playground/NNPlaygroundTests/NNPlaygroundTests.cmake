@@ -6,7 +6,7 @@ find_package(onnxruntime REQUIRED)
 
 add_executable(NNPlaygroundTests ${SOURCES})
 
-target_link_libraries(NNPlaygroundTests PRIVATE NNPlayground PRIVATE GTest::gtest_main PRIVATE onnxruntime::onnxruntime)
+target_link_libraries(NNPlaygroundTests PRIVATE NNPlayground PRIVATE GTest::gtest_main)
 
 enable_testing()
 include( GoogleTest )
