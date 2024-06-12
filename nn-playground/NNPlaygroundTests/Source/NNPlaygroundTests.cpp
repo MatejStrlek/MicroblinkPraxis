@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 
-const std::filesystem::path testDataDir = "/Users/matejgalic/Documents/Praksa/Praxis/nn-playground/test-data";
+const std::filesystem::path testDataDir = "../test-data";
 
 TEST( ImageLoaderTest, BlackAndWhite28x28 )
 {
