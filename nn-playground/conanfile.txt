@@ -1,0 +1,8 @@
+[requires]
+libspng/0.7.4
+gtest/1.12.1
+onnxruntime/1.16.3
+
+[generators]
+CMakeDeps
+CMakeToolchain
